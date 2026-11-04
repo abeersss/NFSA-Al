@@ -1,0 +1,74 @@
+Turbo-NAFS-128  rounds=16 paths=3 k=4 |F|=8  mode=full
+
+1. Correctness
+  [PASS] Block round-trip D(E(x))=x: 1000000/1000000   (ideal 100%) 1000 keys
+  [PASS] Scalar vs NumPy implementations agree: 2000/2000   (ideal 100%) 
+  [PASS] Message round-trip (CBC+HMAC, 0-4096 B): 2000/2000   (ideal 100%) 
+  [PASS] Same plaintext, 1000 encryptions -> distinct ciphertexts: 1000   (ideal 1000) 
+  KAT  E(00..1f, 00..0f) = 259aa298196741a96a5f59ac23d9c900
+
+2. Bijectivity (decryption is only possible if nothing is lost)
+  [PASS] Each f in F has an exact inverse: 35300/35300   (ideal 100%) 
+  [PASS] Ciphertext collisions over 2,097,152 distinct inputs: 0   (ideal 0) (paper prototype: 693 of 997 lost at r=5)
+
+3. Non-commutativity of the functional space
+  [PASS] Distinct pairs fi∘fj≠fj∘fi (min over pairs): 0.9997   (ideal > 0.5) mean 1.0000; paper's f1,f2 commute 100%
+
+4. Diffusion / avalanche
+  [PASS] Plaintext avalanche (1-bit flip): 63.996 bits (50.00%), sd 5.660   (ideal 64.000 (50%), sd 5.657) fit to Binomial(128,½) p=0.979
+  [PASS] Strict Avalanche Criterion (128×128 cells): max|p-½|=0.0320   (ideal ≤0.0364 (95% bound for N=4096)) χ²(16384) p=0.680
+  rounds  mean-flip  min-cell  max-cell  SAC-p
+       1  0.1581    0.0000    0.6104    0
+       2  0.3924    0.0000    0.6045    0
+       3  0.4999    0.4385    0.5605    0.974
+       4  0.5001    0.4404    0.5713    0.694
+       5  0.4998    0.4414    0.5605    0.657
+       6  0.5001    0.4346    0.5625    0.0909
+       7  0.4999    0.4375    0.5566    0.728
+       8  0.5000    0.4365    0.5576    0.285
+       9  0.4999    0.4307    0.5635    0.241
+      10  0.5001    0.4336    0.5615    0.761
+      11  0.5000    0.4395    0.5693    0.583
+      12  0.5001    0.4307    0.5566    0.0194
+      13  0.5002    0.4355    0.5605    0.571
+      14  0.5002    0.4307    0.5625    0.426
+      15  0.4999    0.4346    0.5615    0.307
+      16  0.5000    0.4443    0.5664    0.441
+  [PASS] First round passing SAC (security margin): round 3 of 16   (ideal well below r) margin 13 rounds
+
+5. Key sensitivity
+  [PASS] Key avalanche (1 of 256 key bits flipped): 0.5005 of ct bits flip   (ideal 0.5000) n=64,000 blocks
+  [PASS] Decrypt with 1-bit-wrong key: plaintext bits correct: 0.5003   (ideal 0.5000 (chance)) 
+  [PASS] Distinct keys -> distinct E_k(0) over 5000 keys: 5000   (ideal 5000) 
+
+6. Randomness of ciphertext (input = counter 0,1,2,... : maximally structured)
+  200 sequences x 1,000,000 bits, each under a fresh key; pass rate must be ≥ 0.9689
+  test                                       Turbo-NAFS     os.urandom control
+  Frequency (monobit)            0.985 (unif p 0.262)   0.995 (unif p 0.876)
+  Block frequency                0.990 (unif p 0.419)   1.000 (unif p 0.237)
+  Runs                           1.000 (unif p 0.103)   1.000 (unif p 0.172)
+  Longest run of ones            0.990 (unif p 0.834)   0.980 (unif p 0.437)
+  Cumulative sums                0.985 (unif p 0.779)   1.000 (unif p 0.975)
+  Approximate entropy (m=8)      1.000 (unif p 0.269)   0.980 (unif p 0.798)
+  Spectral (DFT)                 0.985 (unif p 0.585)   0.990 (unif p 0.231)
+  [PASS] NIST SP 800-22 subset (7 tests): 7/7 pass   (ideal 7/7) 
+  [PASS] Byte entropy over 16 MiB: 7.999990 bits/byte   (ideal 8.000000) 
+  [PASS] Byte-frequency χ²(255): 231.0, p=0.857   (ideal ≈255, p>0.001) 
+  [PASS] Serial correlation of adjacent bytes: +0.00001   (ideal 0 ± 0.00073) 
+
+7. Linear and differential bias
+  [PASS] Max |corr(pt bit, ct bit)| over 16,384 pairs, N=1,048,576: 0.00415   (ideal ≤0.00455 (95% bound)) χ² p=0.199
+  [PASS] Fixed 1-bit Δin over 1,048,576 pairs: most frequent Δout: seen 1×   (ideal 1× (no repeats expected)) 
+  [PASS] Output-difference bytes uniform (16 χ² tests): min p=0.1216   (ideal > 0.001/16) 
+
+8. Integrity (message mode)
+  [PASS] Single-bit tampering rejected: 5000/5000   (ideal 100%) 
+  [PASS] Truncation / wrong AAD / wrong key / empty rejected: 4/4   (ideal 4/4) 
+
+9. Performance (Python/NumPy; not representative of a C implementation)
+  batch encrypt 6.75 MiB/s, decrypt 6.58 MiB/s
+  scalar 162.9 µs/block, key setup 0.53 ms
+  runtime vs rounds linear fit R² = 0.9584
+  (reference: AES-256 in OpenSSL 2419 MiB/s)
+
+22/22 checks passed  (121 s)  -> results.json

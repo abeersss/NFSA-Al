@@ -1,0 +1,105 @@
+{
+  "paper_example": {
+    "c(123)": 212,
+    "c(124)": 885
+  },
+  "invertibility": [
+    {
+      "rounds": 1,
+      "distinct_ciphertexts": 997,
+      "uniquely_decryptable_plaintexts": 997,
+      "pct_lost": 0.0,
+      "largest_collision_class": 1,
+      "entropy_bits": 9.9614
+    },
+    {
+      "rounds": 2,
+      "distinct_ciphertexts": 499,
+      "uniquely_decryptable_plaintexts": 1,
+      "pct_lost": 99.9,
+      "largest_collision_class": 2,
+      "entropy_bits": 8.9625
+    },
+    {
+      "rounds": 3,
+      "distinct_ciphertexts": 374,
+      "uniquely_decryptable_plaintexts": 0,
+      "pct_lost": 100.0,
+      "largest_collision_class": 4,
+      "entropy_bits": 8.4622
+    },
+    {
+      "rounds": 4,
+      "distinct_ciphertexts": 374,
+      "uniquely_decryptable_plaintexts": 0,
+      "pct_lost": 100.0,
+      "largest_collision_class": 4,
+      "entropy_bits": 8.4622
+    },
+    {
+      "rounds": 5,
+      "distinct_ciphertexts": 304,
+      "uniquely_decryptable_plaintexts": 0,
+      "pct_lost": 100.0,
+      "largest_collision_class": 8,
+      "entropy_bits": 8.0909
+    },
+    {
+      "rounds": 6,
+      "distinct_ciphertexts": 232,
+      "uniquely_decryptable_plaintexts": 0,
+      "pct_lost": 100.0,
+      "largest_collision_class": 16,
+      "entropy_bits": 7.6239
+    },
+    {
+      "rounds": 7,
+      "distinct_ciphertexts": 199,
+      "uniquely_decryptable_plaintexts": 0,
+      "pct_lost": 100.0,
+      "largest_collision_class": 22,
+      "entropy_bits": 7.3645
+    },
+    {
+      "rounds": 8,
+      "distinct_ciphertexts": 199,
+      "uniquely_decryptable_plaintexts": 0,
+      "pct_lost": 100.0,
+      "largest_collision_class": 22,
+      "entropy_bits": 7.3645
+    }
+  ],
+  "f3_image_size": 499,
+  "path_per_round_r5": [
+    [
+      "f2",
+      "f1",
+      "f2"
+    ],
+    [
+      "f3",
+      "f2",
+      "f2"
+    ],
+    [
+      "f3",
+      "f1",
+      "f1"
+    ],
+    [
+      "f1",
+      "f2",
+      "f2"
+    ],
+    [
+      "f2",
+      "f2",
+      "f3"
+    ]
+  ],
+  "noncommuting_fraction": {
+    "f1,f2": 0.0,
+    "f1,f3": 1.0,
+    "f2,f3": 1.0
+  }
+}
