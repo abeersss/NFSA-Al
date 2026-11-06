@@ -2,7 +2,7 @@
 
 Reference implementation, verification suite and data for the manuscript
 
-> A. S. Alshammari, "An invertible block cipher based on non-abelian functional superposition," submitted to the *International Journal of Informatics and Communication Technology (IJ-ICT)*.
+> A. Alshammari, "An invertible block cipher based on non-abelian functional superposition," submitted to the *International Journal of Informatics and Communication Technology (IJ-ICT)*.
 
 It builds on the preliminary design in A. S. Alshammari, "Design of Turbo-NAFS: A quantum-resilient encryption scheme based on functional superposition," SSRN preprint [6167526](https://ssrn.com/abstract=6167526), 2026.
 
@@ -91,4 +91,4 @@ The key-check value for key `000102…1f` is `df0344cde4c30cd5`.
 
 ## Author
 
-Abeer Saleh Alshammari · ORCID [0009-0003-9379-2667](https://orcid.org/0009-0003-9379-2667)
+Dr. Abeer Alshammari · Research Practitioner, Kuwait · ORCID [0009-0003-9379-2667](https://orcid.org/0009-0003-9379-2667)
